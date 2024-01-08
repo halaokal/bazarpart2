@@ -1,0 +1,34 @@
+version: '3'
+services:
+  catalog:
+    #image: node:14 # Use an appropriate Node.js version
+    container-name: express-node-app-container
+    image: express-node-app
+    deploy:
+     replicas: 2
+    build:
+      context: ./catalog-server # Replace with the actual path to your catalog server code
+    ports:
+      - "4000:4000" # Adjust the port if needed
+
+  order:
+    container-name: express-node-app-container
+    image: express-node-app
+    deploy:
+     replicas: 2
+    build:
+      context: ./order-server # Replace with the actual path to your order server code
+    ports:
+      - "4000:4000" # Adjust the port if needed
+
+  frontend:
+    container-name: express-node-app-container
+    image: express-node-app
+    build:
+      context: ./frontend-server # Replace with the actual path to your frontend server code
+    ports:
+      - "4001:4001" # Adjust the port if needed
+    depends_on:
+      - catalog
+      - order
+    
