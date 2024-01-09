@@ -8,10 +8,10 @@ const catalog = [];
 let info = [];
 let purchase;
 
-// Specify the master and slave servers
+
 const masterServer = 'http://10.0.2.5:4000';  // Change to the actual address of your master server
 const slaveServers = ['http://10.0.2.4:4000',
-    // Add more slave servers if needed
+    
 ];
 
 let currentServerIndex = 0;
@@ -52,9 +52,9 @@ const fetchData = (url) => {
     });
 };
 
-// Endpoint to search for an item in the catalog
+
 app.get('/CATALOG_WEBSERVICE_IP/search/:itemName', async (req, response) => {
-    // Use a slave server for read operations
+    
     
     const url = slaveServers[currentServerIndex] + `/CATALOG_WEBSERVICE_IP/find/${req.params.itemName}`;
     try {
@@ -68,7 +68,7 @@ app.get('/CATALOG_WEBSERVICE_IP/search/:itemName', async (req, response) => {
         }
         console.log('info = ', info);
         response.send(info);
-        // Increment the index for the next request
+
         currentServerIndex = (currentServerIndex + 1) % slaveServers.length;
         const end = performance.now();
         const elapsedTime = end - start;
@@ -80,7 +80,7 @@ app.get('/CATALOG_WEBSERVICE_IP/search/:itemName', async (req, response) => {
     }
 });
 
-// Endpoint to purchase an item in the catalog
+
 app.get('/CATALOG_WEBSERVICE_IP/purchase/:itemNUM', async (req, response) => {
     try {
         const start = performance.now();
@@ -108,9 +108,9 @@ app.get('/CATALOG_WEBSERVICE_IP/purchase/:itemNUM', async (req, response) => {
 
 });
 
-// Endpoint to get info about an item in the catalog
+
 app.get('/CATALOG_WEBSERVICE_IP/info/:itemNUM', async (req, response) => {
-    // Use a slave server for read operations
+    
     const url = slaveServers[currentServerIndex] + `/CATALOG_WEBSERVICE_IP/getInfo/${req.params.itemNUM}`;
     try {
         const start = performance.now();
@@ -122,7 +122,7 @@ app.get('/CATALOG_WEBSERVICE_IP/info/:itemNUM', async (req, response) => {
         }
         console.log('info = ', info);
         response.send(info);
-        // Increment the index for the next request
+        
         currentServerIndex = (currentServerIndex + 1) % slaveServers.length;
         const end = performance.now();
         const elapsedTime = end - start;
