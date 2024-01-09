@@ -58,7 +58,7 @@ fs.createReadStream('catalog.csv')
         console.error(error);
     });
 
-// Consolidated function for updating catalog.csv
+
 async function updateCatalogCSV() {
     try {
         await catalogCsvWriter.writeRecords(catalog);
@@ -105,7 +105,7 @@ app.get('/CATALOG_WEBSERVICE_IP/put/dec/:itemNum', async (req, res) => {
         }
     }
 
-    // Update catalog.csv after decrementing quantity
+    
     try {
         await updateCatalogCSV();
         res.json(result);
@@ -124,7 +124,7 @@ app.get('/CATALOG_WEBSERVICE_IP/put/inc/:itemNum', async (req, res) => {
         }
     }
 
-    // Update catalog.csv after incrementing quantity
+    
     try {
         await updateCatalogCSV();
         res.json(result);
@@ -145,7 +145,7 @@ app.get('/CATALOG_WEBSERVICE_IP/updatePrice/:itemNum/:newPrice', async (req, res
         }
     }
 
-    // Update catalog.csv after updating price
+    
     try {
         await updateCatalogCSV();
         res.json(result);
@@ -158,11 +158,7 @@ app.use(express.json());
 app.post('/CATALOG_WEBSERVICE_IP/updateCatalog', (req, res) => {
     const receivedData = req.body;
     console.log("receivedData : " + receivedData);
-
-    // Handle the received data and update the CSV file
     updateCsvFile(receivedData);
-
-    // Send a response back to Server A
     res.json({ message: 'Data received and CSV file updated successfully on Server B' });
 });
 
@@ -171,14 +167,10 @@ function updateCsvFile(data) {
 
     if (!item) {
         console.log('Item not found');
-        //return response.status(404).send('Item not found');
     }
-
-    // If the CSV file doesn't exist, create it with headers
     if (!fs.existsSync('order.csv')) {
         orderCsvWriter.writeRecords([data]);
     } else {
-        // Append data to the existing CSV file
         orderCsvWriter.writeRecords([data], { header: false });
     }
 
