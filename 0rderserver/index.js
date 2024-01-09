@@ -51,7 +51,6 @@ const orderCsvWriter = createCsvWriter({
         });
 
 
-// Define the catalog server URL
 const catalogServerUrl = 'http://10.0.2.4:4000';
 
 
@@ -123,7 +122,6 @@ async function sendOrderToCatalogServer(order) {
         const catalogServerUrl = 'http://10.0.2.4:4000';
         const catalogUpdateUrl = `${catalogServerUrl}/CATALOG_WEBSERVICE_IP/updateCatalog`;
 
-        // Use axios to make a POST request to the catalog server
          axios.post(catalogUpdateUrl, order).then((response) => {
             console.log('data sent t0 catal0g');
             console.log('resp0nse',response.data);
