@@ -9,7 +9,7 @@ let info = [];
 let purchase;
 
 
-const masterServer = 'http://10.0.2.5:4000';  // Change to the actual address of your master server
+const masterServer = 'http://10.0.2.5:4000'; 
 const slaveServers = ['http://10.0.2.4:4000',
     
 ];
